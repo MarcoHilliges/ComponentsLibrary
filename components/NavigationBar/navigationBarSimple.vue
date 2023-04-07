@@ -1,32 +1,31 @@
 <template>
     <nav class="nav__container">
-        <ul class="ul__nav">
-            <li class="home">
-                <NuxtLink to="/" class="">
-                    Home
-                </NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/components" class="">
-                    Components
-                </NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/nuxtOriginal" class="">
-                    Nuxt Original
-                </NuxtLink>
-            </li>
-            <li>
-                <NuxtLink to="/nuxtOriginal" class="">
-                    Nuxt Original
+        <ul class="ul__nav flex flex-col">
+            <li v-for="route in avelableRoutes" :key="route.to" :class="{'active-route': currentRoute === route.to}">
+                <NuxtLink :to="route.to" class="">
+                    {{ route.name }}
                 </NuxtLink>
             </li>
         </ul>
     </nav>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
 
+export default defineComponent({
+  name: 'navigationBarSimple',
+  props: {
+    currentRoute: {
+      type: String as PropType<string>,
+      required: true,
+    },
+    avelableRoutes: {
+        type: Array as PropType<{name: string, to: string}[]>,
+      required: true,
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -69,8 +68,8 @@
     .ul__nav a:before {
         right: 0;
         top: 0;
-        border-right: 3px solid #07d111;
-        border-top: 3px solid #07d111;
+        border-right: 3px solid #b80000;
+        border-top: 3px solid #b80000;
         -webkit-transform: translate(-60%, 30%);
         transform: translate(-60%, 30%);
     }
@@ -78,21 +77,21 @@
     .ul__nav a:after {
         left: 0;
         bottom: 0;
-        border-left: 3px solid #07d111;
-        border-bottom: 3px solid #07d111;
+        border-left: 3px solid #b80000;
+        border-bottom: 3px solid #b80000;
         -webkit-transform: translate(60%, -30%);
         transform: translate(60%, -30%);
     }
 
     .ul__nav a:hover,
-    .ul__nav .home a {
+    .ul__nav .active-route a {
         color: #ffffff;
     }
 
     .ul__nav a:hover:before,
-    .ul__nav .home a:before,
+    .ul__nav .active-route a:before,
     .ul__nav a:hover:after,
-    .ul__nav .home a:after {
+    .ul__nav .active-route a:after {
         -webkit-transform: translate(0%, 0%);
         transform: translate(0%, 0%);
         opacity: 1;

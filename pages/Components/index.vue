@@ -1,3 +1,5 @@
 <template>
-    huhu
+    
 </template>
+
+<style></style>
